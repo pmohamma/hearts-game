@@ -35,11 +35,11 @@ public class Card {
 		return myNumberValue;
 	}
 	
-	public String StringValue() {
+	public String stringValue() {
 		return myStringValue;
 	}
 	
-	public String Suit() {
+	public String suit() {
 		return mySuit;
 	}
 	
@@ -55,7 +55,7 @@ public class Card {
 		}
 		
 		Card obj = (Card) o;
-		if ((obj.numberValue() == myNumberValue) && (myStringValue.equals(obj.StringValue()))){
+		if ((obj.numberValue() == myNumberValue) && (myStringValue.equals(obj.stringValue()))){
 			return true;
 		}
 		else {
