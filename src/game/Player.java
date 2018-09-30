@@ -51,15 +51,15 @@ public class Player implements Comparable<Player> {
 		return myName;
 	}
 	
-	public Card playCard(String value, String suit, Scanner reader) {
-		Card cardToDrop = myHand.drop(value, suit);
+	public Card playCard(String value, String suit, Scanner reader, String leadSuit) {
+		Card cardToDrop = myHand.drop(value, suit, leadSuit);
 		while (cardToDrop == null) {
 			System.out.println("This was not a valid entry. Please make sure the card you typed" +
 					" is in our hand and try again.");
 			String val = reader.next();
 			reader.next();
 			String playersSuit = reader.next();
-			cardToDrop = myHand.drop(val,  playersSuit);
+			cardToDrop = myHand.drop(val,  playersSuit, leadSuit);
 		}
 		return cardToDrop;
 	}

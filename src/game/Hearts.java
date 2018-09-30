@@ -38,7 +38,7 @@ public class Hearts {
 		for (Player p : players) {
 			p.resetWinnings();
 		}
-		cardsPlayed.put(starter, starter.playCard("2", "clubs", reader));
+		cardsPlayed.put(starter, starter.playCard("2", "clubs", reader, "clubs"));
 		starter = playHand(players, cardsPlayed, starter, reader);
 		
 		while ( !gameOver(players) ) {
@@ -48,7 +48,7 @@ public class Hearts {
 					p.resetWinnings();
 				}
 				cardsPlayed.clear();
-				cardsPlayed.put(starter, starter.playCard("2", "clubs", reader));
+				cardsPlayed.put(starter, starter.playCard("2", "clubs", reader, "clubs"));
 				playHand(players, cardsPlayed, starter, reader);
 			}
 			
@@ -59,10 +59,24 @@ public class Hearts {
 				System.out.println(starter.getName() + ": What Card Would you like to play? \n" + 
 						"Please type your card in a format like \"2 of clubs\" or \"king of diamonds\"+"
 						+ "Here are your cards:\n" + starter.accessHand().toString());
-				String val = reader.next();
-				reader.next();
-				String playersSuit = reader.next();
-				cardsPlayed.put(starter, starter.playCard(val, playersSuit, reader));
+				boolean notClearHearts = true;
+				String val = "";
+				String playersSuit = "";
+				while (notClearHearts) {
+					val = reader.next();
+					reader.next();
+					playersSuit = reader.next();
+					if (!playersSuit.equals("hearts")) {
+						notClearHearts = false;
+					}
+					else if (brokenHearts(hands)) {
+						notClearHearts = false;
+					}
+					else {
+						System.out.println("You cannot start a round with a heart, since the hearts have yet to be broken. Please try again");
+					}
+				}
+				cardsPlayed.put(starter, starter.playCard(val, playersSuit, reader, playersSuit));
 				starter = playHand(players, cardsPlayed, starter, reader);
 			}
 		}
@@ -100,7 +114,8 @@ public class Hearts {
 					String val = reader.next();
 					reader.next();
 					String playersSuit = reader.next();
-					cardsPlayed.put(currentPlayer, currentPlayer.playCard(val, playersSuit, reader));
+					String leadSuit = cardsPlayed.get(starter).suit();
+					cardsPlayed.put(currentPlayer, currentPlayer.playCard(val, playersSuit, reader, leadSuit));
 				}
 				break;
 			}
@@ -142,6 +157,19 @@ public class Hearts {
 		}
 		cardsPlayed.clear();
 		return topPlayer;
+	}
+	
+	public static boolean brokenHearts(Hand[] hands) {
+		int sum = 0;
+		for (Hand h: hands) {
+			sum += h.seeHearts().size();
+		}
+		if (sum == 13) {
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 	
 	public static boolean gameOver(Player[] players) {

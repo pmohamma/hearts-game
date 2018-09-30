@@ -44,8 +44,39 @@ public class Hand {
 	 * @param droppingCard
 	 * @return returns card that you are dropping if possible. returns null if the card does not exist
 	 */
-	public Card drop(String value, String suit) {
+	public Card drop(String value, String suit, String leadSuit) {
 		Card cardToDrop;
+		if (suit.equals(leadSuit)) {
+			;
+		}
+		else {
+			switch (leadSuit) {
+			case ("spades"):
+				if (spades.isEmpty()) {;}
+				else {
+					System.out.println("You still have a spade you are required to play. Please try again and play a spade.");
+				}
+				break;
+			case ("diamonds"):
+				if (diamonds.isEmpty()) {;}
+				else {
+					System.out.println("You still have a diamond you are required to play. Please try again and play a diamond.");
+				}
+				break;
+			case ("clubs"):
+				if (clubs.isEmpty()) {;}
+				else {
+					System.out.println("You still have a club you are required to play. Please try again and play a club.");
+				}
+				break;
+			case ("hearts"):
+				if (hearts.isEmpty()) {;}
+				else {
+					System.out.println("You still have a heart you are required to play. Please try again and play a heart.");
+				}
+				break;
+			}
+		}
 		for (int i = 0; i <= numberOfCards; i++) {
 			if (value.equals(myCards[i].stringValue()) && suit.equals(myCards[i].suit())){
 				cardToDrop = myCards[i];
@@ -79,17 +110,12 @@ public class Hand {
 		return myCards;
 	}
 	
-	public Set<Integer> seeSpades() {
-		return spades;
-	}
+
 	public Set<Integer> seeHearts() {
 		return hearts;
 	}
 	public Set<Integer> seeClubs() {
 		return clubs;
-	}
-	public Set<Integer> seeDiamonds() {
-		return diamonds;
 	}
 
 }
