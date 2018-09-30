@@ -46,7 +46,7 @@ public class Hand {
 	 */
 	public Card drop(String value, String suit) {
 		Card cardToDrop;
-		for (int i = 0; i < numberOfCards; i++) {
+		for (int i = 0; i <= numberOfCards; i++) {
 			if (value.equals(myCards[i].stringValue()) && suit.equals(myCards[i].suit())){
 				cardToDrop = myCards[i];
 				myCards[i] = myCards[numberOfCards-1];

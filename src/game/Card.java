@@ -22,7 +22,7 @@ public class Card {
 			case (13): {myStringValue = "king";
 				break;
 				}
-			case (1): {myStringValue = "ace";
+			case (14): {myStringValue = "ace";
 				break;
 				}
 			}

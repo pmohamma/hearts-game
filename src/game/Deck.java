@@ -25,7 +25,7 @@ public class Deck {
 		
 		for (int iteration = 4; iteration > 0; iteration--) {
 			Hand currentHand = new Hand();
-			for (int i = 13; i>0; i--) {
+			for (int i = 14; i>1; i--) {
 				int randomNumber = rand.nextInt(((i)+(iteration-1)));
 				Card addingCard = theDeck[randomNumber]; //returns a random card out of the deck to grab
 				currentHand.add(addingCard);

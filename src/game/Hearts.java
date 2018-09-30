@@ -34,16 +34,25 @@ public class Hearts {
 		while (!reader.nextLine().equals("")) {
 		}
 		
+		Map<Player, Card> cardsPlayed = new TreeMap<Player, Card>();
+		for (Player p : players) {
+			p.resetWinnings();
+		}
+		cardsPlayed.put(starter, starter.playCard("2", "clubs", reader));
+		starter = playHand(players, cardsPlayed, starter, reader);
+		
 		while ( !gameOver(players) ) {
-			for (Player p : players) {
-				p.resetWinnings();
+			
+			if (cardsLeft(hands[0]) == 0){
+				for (Player p : players) {
+					p.resetWinnings();
+				}
+				cardsPlayed.clear();
+				cardsPlayed.put(starter, starter.playCard("2", "clubs", reader));
+				playHand(players, cardsPlayed, starter, reader);
 			}
-			Map<Player, Card> cardsPlayed = new TreeMap<Player, Card>();
-			cardsPlayed.put(starter, starter.playCard("2", "clubs", reader));
-			playHand(players, cardsPlayed, starter, reader);
-			while (cardsLeft(hands[0]) > 0) {
-				starter = playHand(players, cardsPlayed, starter, reader);
-				cardsPlayed.clear();	
+			
+			else {
 				System.out.println("\n" + starter.getName() +  ": Press Enter to see your cards.");
 				while (!reader.nextLine().equals("")) {
 					}
@@ -54,8 +63,8 @@ public class Hearts {
 				reader.next();
 				String playersSuit = reader.next();
 				cardsPlayed.put(starter, starter.playCard(val, playersSuit, reader));
+				starter = playHand(players, cardsPlayed, starter, reader);
 			}
-			
 		}
 		
 		reader.close();
@@ -70,14 +79,19 @@ public class Hearts {
 			Card> cardsPlayed, Player starter, Scanner reader) {
 		for (int i = 0; i < 4; i++) {
 			if (players[i].equals(starter)) {
-				System.out.println(cardsPlayed.size());
 				for (int j = 1; j < 4; j++) {
 					System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCards played so far:");
-					Player[] keys = (Player[]) cardsPlayed.keySet().toArray();
-					for(Map.Entry<Player,Card> entry : cardsPlayed.entrySet()) {	
-						System.out.println("" + entry.getKey().getName() + ": " + entry.getValue().toString() + "\n");
+					Player[] keys = new Player[4];
+					for (int h = 0; h < 4; h++) {
+						keys[h] = players[(i+h)%4];
+					}
+					for(Player p: keys) {
+						if (cardsPlayed.get(p) != null) {
+							System.out.println("" + p.getName() + ": " + cardsPlayed.get(p));
+						}
+					}
 					Player currentPlayer = players[(i+j)%4];
-					System.out.println(currentPlayer.getName() +  ": It is your turn. Press Enter to see your cards.");
+					System.out.println("\n" + currentPlayer.getName() +  ": It is your turn. Press Enter to see your cards.");
 					while (!reader.nextLine().equals("")) {
 						}
 					System.out.println(currentPlayer.getName() + ": What Card Would you like to play? \n" + 
@@ -87,7 +101,6 @@ public class Hearts {
 					reader.next();
 					String playersSuit = reader.next();
 					cardsPlayed.put(currentPlayer, currentPlayer.playCard(val, playersSuit, reader));
-					}	
 				}
 				break;
 			}
@@ -122,6 +135,12 @@ public class Hearts {
 		topPlayer.addWinnings(cardsPlayed.values());
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" + topPlayer.getName() + 
 				" takes the hand with the " + topCard.toString() + " so they get to start this hand of play.");
+		System.out.println("Press Enter to Continue");
+		while (!reader.nextLine().equals("")) {
+		}
+		while (!reader.nextLine().equals("")) {
+		}
+		cardsPlayed.clear();
 		return topPlayer;
 	}
 	
