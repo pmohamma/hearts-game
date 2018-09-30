@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Collection;
+
 public class Winnings {
 	//Queen of spades is 13
 	//Each heart is 13
@@ -14,15 +16,15 @@ public class Winnings {
 		
 	}
 	
-	public void addToWinnings(Card[] cards) {
+	public void addToWinnings(Collection<Card> cards) {
 		for (Card c : cards) {
 			myCards[cardsNumber] = c;
 			cardsNumber++;
-			if (c.suit().equals("Hearts")) {
+			if (c.suit().equals("hearts")) {
 				myCardsThatCount[cardsThatCountNumber] = c;
 				cardsThatCountNumber++;
 			}
-			else if ((c.numberValue() == 12) && (c.suit().equals("Spades"))) {
+			else if ((c.numberValue() == 12) && (c.suit().equals("spades"))) {
 				myCardsThatCount[cardsThatCountNumber] = c;
 				cardsThatCountNumber++;
 			}
@@ -41,5 +43,23 @@ public class Winnings {
 			ret = "No cards in winnings";
 		}
 		return ret;
+	}
+	
+	public int calculateWinnings() {
+		if (cardsThatCountNumber == 0) {
+			return 0;
+		}
+		else{
+			int ret = 0;
+			for (Card c : myCardsThatCount) {
+				if (c.suit().equals("spades")) {
+					ret+=13;
+				}
+				else {
+					ret+=1;
+				}
+			}
+			return ret;
+		}
 	}
 }

@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Deck {
 	
-	String[] suits = {"Clubs", "Hearts", "Spades", "Diamonds"};
+	String[] suits = {"clubs", "hearts", "spades", "diamonds"};
 	
 	private Card[] theDeck = new Card[52];
 	
@@ -29,7 +29,6 @@ public class Deck {
 				int randomNumber = rand.nextInt(((i)+(iteration-1)));
 				Card addingCard = theDeck[randomNumber]; //returns a random card out of the deck to grab
 				currentHand.add(addingCard);
-				//System.out.println(addingCard.toString());
 				theDeck[randomNumber] = theDeck[cardsInDeck];
 				cardsInDeck--;
 			}

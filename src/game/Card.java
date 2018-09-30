@@ -13,16 +13,16 @@ public class Card {
 		}
 		else {
 			switch(number) {
-			case (11): {myStringValue = "Jack";
+			case (11): {myStringValue = "jack";
 				break;
 				}
-			case (12): {myStringValue = "Queen";
+			case (12): {myStringValue = "queen";
 				break;
 				}
-			case (13): {myStringValue = "King";
+			case (13): {myStringValue = "king";
 				break;
 				}
-			case (1): {myStringValue = "Ace";
+			case (1): {myStringValue = "ace";
 				break;
 				}
 			}
@@ -32,7 +32,7 @@ public class Card {
 	}
 	
 	public int numberValue() {
-		return myNumberValue;
+		return (Integer) myNumberValue;
 	}
 	
 	public String stringValue() {
