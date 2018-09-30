@@ -51,6 +51,15 @@ public class Player implements Comparable<Player> {
 		return myName;
 	}
 	
+	public void shotTheMoon(Player p) {
+		if (this.equals(p)) {
+			score -= 26;
+		}
+		else {
+			score += 26;
+		}
+	}
+	
 	public Card playCard(String value, String suit, Scanner reader, String leadSuit) {
 		Card cardToDrop = myHand.drop(value, suit, leadSuit);
 		while (cardToDrop == null) {

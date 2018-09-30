@@ -45,6 +45,13 @@ public class Hearts {
 			
 			if (cardsLeft(hands[0]) == 0){
 				for (Player p : players) {
+					int oldScore = p.getScore();
+					int newScore = p.calculateScore();
+					if ((newScore-oldScore) == 26) {
+						for (Player play : players) {
+							play.shotTheMoon(p);
+						}
+					}
 					p.resetWinnings();
 				}
 				cardsPlayed.clear();
